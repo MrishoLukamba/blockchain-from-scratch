@@ -40,7 +40,113 @@ impl StateMachine for ClothesMachine {
     type Transition = ClothesAction;
 
     fn next_state(starting_state: &ClothesState, t: &ClothesAction) -> ClothesState {
-        todo!("Exercise 3")
+        match starting_state {
+            ClothesState::Clean(num) => {
+                match t {
+                    ClothesAction::Wear => {
+                        if *num > 0 && (*num -1) == 0{
+                            return ClothesState::Tattered
+                        }else if *num == 0{
+                            return ClothesState::Tattered;
+                        }else {
+                            return ClothesState::Dirty(num -1)
+                        }
+                    },
+                    ClothesAction::Wash => {
+                        if *num > 0 && (*num -1) == 0{
+                            return ClothesState::Tattered
+                        }else if *num == 0{
+                            return ClothesState::Tattered;
+                        }else {
+                            return ClothesState::Wet(num -1)
+                        }
+                    },
+                    ClothesAction::Dry => {
+                        if *num > 0 && (*num -1) == 0{
+                            return ClothesState::Tattered
+                        }else if *num == 0{
+                            return ClothesState::Tattered;
+                        }else {
+                            return ClothesState::Clean(num -1)
+                        }
+                    },
+                }
+            },
+
+            ClothesState::Dirty(num) => {
+
+                match t {
+                    ClothesAction::Wear => {
+                        if *num > 0 && (*num -1) == 0{
+                            return ClothesState::Tattered
+                        }else if *num == 0{
+                            return ClothesState::Tattered;
+                        }else {
+                            return ClothesState::Dirty(num -1)
+                        }
+                    },
+                    ClothesAction::Wash => {
+                        if *num > 0 && (*num -1) == 0{
+                            return ClothesState::Tattered
+                        }else if *num == 0{
+                            return ClothesState::Tattered;
+                        }else {
+                            return ClothesState::Wet(num -1)
+                        }
+                    },
+                    ClothesAction::Dry => {
+                        if *num > 0 && (*num -1) == 0{
+                            return ClothesState::Tattered
+                        }else if *num == 0{
+                            return ClothesState::Tattered;
+                        }else {
+                            return ClothesState::Dirty(num -1)
+                        }
+                    },
+                }
+
+            },
+            ClothesState::Wet(num) => {
+
+                match t {
+                    ClothesAction::Wear => {
+                        if *num > 0 && (*num -1) == 0{
+                            return ClothesState::Tattered
+                        }else if *num == 0{
+                            return ClothesState::Tattered;
+                        }else {
+                            return ClothesState::Dirty(num -1)
+                        }
+                    },
+                    ClothesAction::Wash => {
+                        if *num > 0 && (*num -1) == 0{
+                            return ClothesState::Tattered
+                        }else if *num == 0{
+                            return ClothesState::Tattered;
+                        }else {
+                            return ClothesState::Wet(num -1)
+                        }
+                    },
+                    ClothesAction::Dry => {
+                        if *num > 0 && (*num -1) == 0{
+                            return ClothesState::Tattered
+                        }else if *num == 0{
+                            return ClothesState::Tattered;
+                        }else {
+                            return ClothesState::Clean(num -1)
+                        }
+                    },
+                }
+
+            },
+            ClothesState::Tattered => {
+
+                match t {
+                    _ => return ClothesState::Tattered
+                }
+
+            },
+        }
     }
 }
 

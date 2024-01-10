@@ -2,6 +2,8 @@
 //! In these examples, we use actually switch boards as the state machine. The state is,
 //! well, just the state of the switches.
 
+use std::default;
+
 use super::StateMachine;
 
 /// This state machine models a single light switch.
@@ -15,7 +17,10 @@ impl StateMachine for LightSwitch {
     type Transition = ();
 
     fn next_state(starting_state: &bool, t: &()) -> bool {
-        todo!("Exercise 1")
+        match starting_state{
+            false => { true},
+            true => {false}
+        }
     }
 }
 
@@ -42,7 +47,75 @@ impl StateMachine for WeirdSwitchMachine {
     type Transition = Toggle;
 
     fn next_state(starting_state: &TwoSwitches, t: &Toggle) -> TwoSwitches {
-        todo!("Exercise 2")
+        let TwoSwitches { first_switch, second_switch} = starting_state;
+
+        if *first_switch == true && *second_switch == true {
+            match t {
+                Toggle::FirstSwitch => {
+                     TwoSwitches{
+                        first_switch: false,
+                        second_switch: false
+                    }
+                },
+                Toggle::SecondSwitch => {
+                    TwoSwitches{
+                        first_switch: true,
+                        second_switch: false
+                    }
+                }
+            }
+        }else if *first_switch == false && *second_switch == true {
+            match t {
+                Toggle::FirstSwitch => {
+                    TwoSwitches{
+                        first_switch: true,
+                        second_switch: true
+                    }
+                },
+                Toggle::SecondSwitch => {
+                    TwoSwitches{
+                        first_switch: false,
+                        second_switch: false
+                    }
+                }
+            }
+        }else if *first_switch == true &&  *second_switch == false {
+            match t {
+                Toggle::FirstSwitch => {
+                    TwoSwitches{
+                        first_switch: false,
+                        second_switch: false
+                    }
+                },
+                Toggle::SecondSwitch => {
+                    TwoSwitches{
+                        first_switch: true,
+                        second_switch: true
+                    }
+                }
+            }   
+        }else if *first_switch == false && *second_switch == false {
+            match t {
+                Toggle::FirstSwitch => {
+                    TwoSwitches{
+                        first_switch: true,
+                        second_switch: false
+                    }
+                },
+                Toggle::SecondSwitch => {
+                    TwoSwitches{
+                        first_switch: false,
+                        second_switch: true
+                    }
+                }
+            }  
+        }else {
+            TwoSwitches{
+                first_switch: false,
+                second_switch: false
+            }
+        }
+
     }
 }
 
